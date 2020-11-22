@@ -1,0 +1,22 @@
+{
+   "type": "mongodb",
+  "url": "mongodb://test:test@jeanscluster-shard-00-00.wwzcb.mongodb.net:27017,jeanscluster-shard-00-01.wwzcb.mongodb.net:27017,jeanscluster-shard-00-02.wwzcb.mongodb.net:27017/foreverlearning?ssl=true&replicaSet=JeansCluster-shard-0&authSource=admin&retryWrites=true&w=majority",
+  "useNewUrlParser": true,
+  "useUnifiedTopology": true,
+  "synchronize": true,
+  "logging": true,
+   "entities": [
+      "backend/src/entity/**/*.ts"
+   ],
+   "migrations": [
+      "backend/src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "backend/src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "backend/src/entity",
+      "migrationsDir": "backend/src/migration",
+      "subscribersDir": "backend/src/subscriber"
+   }
+}
