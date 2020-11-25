@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import SocialButtons from '../components/SocialButtons';
 
 const login: React.FC = () => {
   return (
@@ -9,10 +10,10 @@ const login: React.FC = () => {
           <div className="flex flex-col w-full lg:w-1/2 h-full bg-white">
             <div className="flex h-24 justify-center items-center">
               <Link href="/">
-                <a className="bg-yellow-600 text-white font-bold text-xl p-4 mt-8">Home</a>
+                <a className="bg-yellow-600 text-white font-bold text-xl p-4 mt-8">Forever Learning</a>
               </Link>
             </div>
-            <div className="flex flex-col h-full justify-center items-center">
+            <div className="flex flex-col h-full justify-center items-center trans">
               <p className="text-center text-3xl text-gray-700">Sign into your account</p>
               <form className="flex flex-col pt-3 md:pt-8 w-2/3 md:w-1/2" onSubmit={(e) => e.preventDefault()}>
                 <div className="flex flex-col pt-4">
@@ -39,6 +40,10 @@ const login: React.FC = () => {
 
                 <input type="submit" value="Log In" className="btn-primary mt-8 cursor-pointer" />
               </form>
+              <div className="w-2/3 md:w-1/2">
+                <SocialButtons />
+              </div>
+
               <div className="text-center pt-12 pb-12">
                 <p className="text-gray-700">
                   Don't have an account?{' '}
@@ -51,7 +56,7 @@ const login: React.FC = () => {
           </div>
           <div className="w-1/2 hidden lg:block">
             <div className="flex justify-start items-center h-full w-full">
-              <img className="object-cover p-4" src="/LoginScreen.svg" />
+              <img className="object-cover p-4" src="/SignInScreen.svg" />
             </div>
           </div>
         </div>

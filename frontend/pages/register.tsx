@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import SocialButtons from '../components/SocialButtons';
 
 const register: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const register: React.FC = () => {
         <div className="flex w-full h-full">
           <div className="w-1/2 hidden lg:block">
             <div className="flex justify-end items-center h-full w-full">
-              <img className="object-cover p-4" src="/LoginScreen.svg" />
+              <img className="object-cover p-4" src="/SignUpScreen.svg" />
             </div>
           </div>
           <div className="flex flex-col w-full lg:w-1/2 h-full bg-white">
@@ -65,6 +66,11 @@ const register: React.FC = () => {
 
                 <input type="submit" value="Log In" className="btn-primary mt-8 cursor-pointer" />
               </form>
+
+              <div className="w-2/3 md:w-1/2">
+                <SocialButtons />
+              </div>
+
               <div className="text-center pt-12 pb-12">
                 <p className="text-gray-700">
                   Already have an account?{' '}
