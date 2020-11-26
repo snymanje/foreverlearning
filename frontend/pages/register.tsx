@@ -1,10 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import SocialButtons from '../components/SocialButtons';
+import Head from 'next/head';
 
 const register: React.FC = () => {
   return (
     <>
+      <Head>
+        <title>Forever Learning - Sign Up</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="bg-white h-screen">
         <div className="flex w-full h-full">
           <div className="w-1/2 hidden lg:block">

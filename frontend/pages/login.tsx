@@ -1,10 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import SocialButtons from '../components/SocialButtons';
+import Head from 'next/head';
 
 const login: React.FC = () => {
   return (
     <>
+      <Head>
+        <title>Forever Learning - Login</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="bg-white h-screen">
         <div className="flex w-full h-full">
           <div className="flex flex-col w-full lg:w-1/2 h-full bg-white">
