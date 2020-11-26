@@ -1,15 +1,14 @@
 import Head from 'next/head';
 import Header from '../components/Header';
 
-const Home: React.FunctionComponent = () => {
-  const addTutorial = (e) => {
-    e.preventDefault();
+const projects: React.FunctionComponent = () => {
+  const addProjects = () => {
     console.log('Add tutorial');
   };
   return (
     <div>
       <Head>
-        <title>Forever Learning - Home</title>
+        <title>Forever Learning - Projects</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="stylesheet"
@@ -24,9 +23,9 @@ const Home: React.FunctionComponent = () => {
         <main className="">
           <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-1 mt-8">
             <div className="flex flex-col items-center justify-center text-gray-700">
-              <h2 className="font-bold text-2xl">Add Tutorial</h2>
+              <h2 className="font-bold text-2xl">Add Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
-                <form onSubmit={(e) => addTutorial(e)} className="flex flex-col w-48 md:w-96">
+                <form onSubmit={() => addProjects} className="flex flex-col w-48 md:w-96">
                   <div className="flex flex-col mt-5">
                     <label htmlFor="title" className="text-lg text-gray-700">
                       Title
@@ -80,18 +79,11 @@ const Home: React.FunctionComponent = () => {
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                     />
                   </div>
-                  <div>
-                    <input
-                      type="submit"
-                      name="Save"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 bg-yellow-800 text-white mt-1 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
-                    />
-                  </div>
                 </form>
               </div>
             </div>
             <div className="flex flex-col items-center justify-start text-gray-700">
-              <h2 className="font-bold text-2xl mt-6 lg:mt-0">Tutorial</h2>
+              <h2 className="font-bold text-2xl mt-6 lg:mt-0">Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
                 <div className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
                   <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
@@ -152,4 +144,4 @@ const Home: React.FunctionComponent = () => {
   );
 };
 
-export default Home;
+export default projects;
