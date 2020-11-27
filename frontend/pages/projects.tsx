@@ -1,9 +1,11 @@
 import Head from 'next/head';
+import { FormEvent } from 'react';
 import Header from '../components/Header';
 
 const projects: React.FunctionComponent = () => {
-  const addProjects = () => {
-    console.log('Add tutorial');
+  const addProjects = (e: FormEvent) => {
+    e.preventDefault();
+    console.log('Add project');
   };
   return (
     <div>
@@ -25,7 +27,7 @@ const projects: React.FunctionComponent = () => {
             <div className="flex flex-col items-center justify-center text-gray-700">
               <h2 className="font-bold text-2xl">Add Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
-                <form onSubmit={() => addProjects} className="flex flex-col w-48 md:w-96">
+                <form onSubmit={(e) => addProjects(e)} className="flex flex-col w-48 md:w-96">
                   <div className="flex flex-col mt-5">
                     <label htmlFor="title" className="text-lg text-gray-700">
                       Title
@@ -77,6 +79,13 @@ const projects: React.FunctionComponent = () => {
                       type="text"
                       name="duration"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="submit"
+                      name="Save"
+                      className="w-full shadow appearance-none border rounded py-2 px-3 bg-yellow-800 hover:bg-yellow-700 text-white mt-1 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
                     />
                   </div>
                 </form>

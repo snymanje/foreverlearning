@@ -1,8 +1,9 @@
 import Head from 'next/head';
+import { FormEvent } from 'react';
 import Header from '../components/Header';
 
 const Home: React.FunctionComponent = () => {
-  const addTutorial = (e) => {
+  const addTutorial = (e: FormEvent) => {
     e.preventDefault();
     console.log('Add tutorial');
   };
@@ -84,7 +85,7 @@ const Home: React.FunctionComponent = () => {
                     <input
                       type="submit"
                       name="Save"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 bg-yellow-800 text-white mt-1 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
+                      className="w-full shadow appearance-none border rounded py-2 px-3 bg-yellow-800 hover:bg-yellow-700 text-white mt-1 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
                     />
                   </div>
                 </form>

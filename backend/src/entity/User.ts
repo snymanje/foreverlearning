@@ -1,6 +1,7 @@
 import { IUser } from './../interfaces/user.interfaces';
 import { Entity, ObjectIdColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, BeforeInsert } from 'typeorm';
-import { Length, IsNotEmpty, IsEmail } from 'class-validator';
+import { Length, IsEmail } from 'class-validator';
+import { classToPlain, Exclude } from 'class-transformer';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 
@@ -43,6 +44,7 @@ export class User {
   @Column({ nullable: true })
   accountActivationToken: string;
 
+  @Exclude()
   @Column({ nullable: true })
   accountActivationExpires: Date;
 
@@ -111,6 +113,10 @@ export class User {
     this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
 
     return resetToken;
+  }
+
+  toJSON(): any {
+    return classToPlain(this);
   }
 
   toClientUserData(): IUser {

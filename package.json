@@ -2,6 +2,7 @@
   "name": "foreverlearning",
   "version": "0.0.1",
   "description": "Todo app for Side Projetcs and Tutorials",
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.0",
@@ -32,6 +33,7 @@
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "compression": "^1.7.4",
+    "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
