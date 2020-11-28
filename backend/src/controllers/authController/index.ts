@@ -1,5 +1,5 @@
 import localSignUp from './localSignUp';
-import googleSignUp from './googleSignUp';
+/* import googleSignUp from './googleSignUp';
 import localLogin from './localLogin';
 import googleLogin from './googleLogin';
 import activateAccount from './activateAccount';
@@ -7,11 +7,11 @@ import logout from './logout';
 import refreshToken from './refreshToken';
 import forgotPassword from './forgotPassword';
 import resetPassword from './resetPassword';
-import updatePassword from './updatePassword';
+import updatePassword from './updatePassword'; */
 
 const authController = {
-  localSignUp,
-  googleSignUp,
+  localSignUp
+  /*   googleSignUp,
   localLogin,
   googleLogin,
   activateAccount,
@@ -19,7 +19,7 @@ const authController = {
   refreshToken,
   forgotPassword,
   resetPassword,
-  updatePassword
+  updatePassword */
 };
 
 export default authController;

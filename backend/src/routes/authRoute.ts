@@ -32,7 +32,7 @@ const router = Router();
  *        200:
  *          description: Account successfully activated.
  */
-router.post('/activate/:activationToken', validateRequest(EmptyDto), AuthController.activateAccount);
+// router.post('/activate/:activationToken', validateRequest(EmptyDto), AuthController.activateAccount);
 
 /**
  * @swagger
@@ -53,7 +53,7 @@ router.post('/activate/:activationToken', validateRequest(EmptyDto), AuthControl
  *        200:
  *          description: User Logged in successfully
  */
-router.post('/localLogin', [validateRequest(LoginLocalUserDto)], AuthController.localLogin);
+/* router.post('/localLogin', [validateRequest(LoginLocalUserDto)], AuthController.localLogin); */
 
 //Login New Google User
 /**
@@ -75,7 +75,7 @@ router.post('/localLogin', [validateRequest(LoginLocalUserDto)], AuthController.
  *        200:
  *          description: User logged in successfully.
  */
-router.post('/googleLogin', [validateRequest(GoogleUserDto)], AuthController.googleLogin);
+/* router.post('/googleLogin', [validateRequest(GoogleUserDto)], AuthController.googleLogin); */
 
 //SignUp new user
 /**
@@ -119,7 +119,7 @@ router.post('/localSignup', [validateRequest(CreateLocalUserDto)], AuthControlle
  *        200:
  *          description: User signed up successfully.
  */
-router.post('/googleSignup', [validateRequest(GoogleUserDto)], AuthController.googleSignUp);
+/* router.post('/googleSignup', [validateRequest(GoogleUserDto)], AuthController.googleSignUp); */
 
 /**
  * @swagger
@@ -134,7 +134,7 @@ router.post('/googleSignup', [validateRequest(GoogleUserDto)], AuthController.go
  *        200:
  *          description: User logged out successfully
  */
-router.post('/logout', AuthController.logout);
+/* router.post('/logout', AuthController.logout); */
 
 /**
  * @swagger
@@ -155,7 +155,7 @@ router.post('/logout', AuthController.logout);
  *        200:
  *          description: Reissued access token
  */
-router.post('/refreshToken', validateRequest(EmptyDto), extractRefreshToken, AuthController.refreshToken);
+/* router.post('/refreshToken', validateRequest(EmptyDto), extractRefreshToken, AuthController.refreshToken); */
 
 /**
  * @swagger
@@ -176,7 +176,7 @@ router.post('/refreshToken', validateRequest(EmptyDto), extractRefreshToken, Aut
  *        200:
  *          description: Password Reset email sent!
  */
-router.post('/forgotPassword', validateRequest(forgotPasswordDto), AuthController.forgotPassword);
+/* router.post('/forgotPassword', validateRequest(forgotPasswordDto), AuthController.forgotPassword); */
 
 /**
  * @swagger
@@ -203,7 +203,7 @@ router.post('/forgotPassword', validateRequest(forgotPasswordDto), AuthControlle
  *        200:
  *          description: Password Reset successfully!
  */
-router.post('/resetPassword/:resetToken', validateRequest(resetPasswordDto), AuthController.resetPassword);
+/* router.post('/resetPassword/:resetToken', validateRequest(resetPasswordDto), AuthController.resetPassword); */
 
 /**
  * @swagger
@@ -224,6 +224,6 @@ router.post('/resetPassword/:resetToken', validateRequest(resetPasswordDto), Aut
  *        200:
  *          description: Password updated successfully!
  */
-router.post('/updatePassword', validateRequest(updatePasswordDto), checkJwt, AuthController.updatePassword);
+/* router.post('/updatePassword', validateRequest(updatePasswordDto), checkJwt, AuthController.updatePassword); */
 
 export default router;

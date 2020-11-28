@@ -1,9 +1,14 @@
-import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import mongoose from 'mongoose';
 
-export default createConnection()
-  .then(async () => {
-    // Create a new express application instance
-    console.info('Conected to DB!!!');
-  })
-  .catch((error) => console.log(error));
+export default (async () => {
+  await mongoose.connect(
+    'mongodb://auth:auth123@jeanscluster-shard-00-00-wwzcb.mongodb.net:27017,jeanscluster-shard-00-01-wwzcb.mongodb.net:27017,jeanscluster-shard-00-02-wwzcb.mongodb.net:27017/ForeverLearning?ssl=true&replicaSet=JeansCluster-shard-0&authSource=admin&retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true
+    }
+  );
+  console.log('Connected to mongodb');
+})();

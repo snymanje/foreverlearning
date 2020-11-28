@@ -1,8 +1,9 @@
 {
-   "type": "mongodb",
-  "url": "mongodb://test:test@jeanscluster-shard-00-00.wwzcb.mongodb.net:27017,jeanscluster-shard-00-01.wwzcb.mongodb.net:27017,jeanscluster-shard-00-02.wwzcb.mongodb.net:27017/foreverlearning?ssl=true&replicaSet=JeansCluster-shard-0&authSource=admin&retryWrites=true&w=majority",
-  "useNewUrlParser": true,
-  "useUnifiedTopology": true,
+   "type": "postgres",
+  "url": "postgres://ttvdieugjoxiwz:093217a46f8a151ac88f7c8f8e82cf7c8625018979495cf759063a9f8427cc42@ec2-54-247-103-43.eu-west-1.compute.amazonaws.com:5432/dbbsfdsq69h25s",
+  "username": "ttvdieugjoxiwz",
+  "password": "093217a46f8a151ac88f7c8f8e82cf7c8625018979495cf759063a9f8427cc42",
+  "extra": { "ssl": false, "rejectUnauthorized": false },
   "synchronize": true,
   "logging": true,
    "entities": [

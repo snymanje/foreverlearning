@@ -1,4 +1,4 @@
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import { getRepository } from 'typeorm';
 import AppError from '../../utils/appError';
 import { IUser } from '../../interfaces/user.interfaces';
@@ -10,7 +10,7 @@ export default async (requestBody: UpdatePasswordDto, id: number): Promise<IUser
   if (password != passwordConfirm) throw new AppError('Password and Confirm Password do not match.', 400);
 
   const userRepository = await getRepository(User);
-  const user = await userRepository.findOne(id);
+  const user = await userRepository.findOne(id)s;
 
   if (!user || !(await user.checkIfUnencryptedPasswordIsValid(passwordCurrent))) {
     throw new AppError('Passwords are not correct', 403);

@@ -1,4 +1,4 @@
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import { getRepository } from 'typeorm';
 import AppError from '../../utils/appError';
 import CreateLocalUserWithRoleDto from '../../dtos/CreateLocalUserWithRoleDto';

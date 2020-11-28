@@ -1,6 +1,6 @@
 import { promisify } from 'util';
 import { getRepository } from 'typeorm';
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import jwt from 'jsonwebtoken';
 import config from '../../config/config';
 import AppError from '../../utils/appError';

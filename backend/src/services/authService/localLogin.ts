@@ -1,7 +1,6 @@
 import LoginUserDto from '../../dtos/LoginLocalUserDto';
 import AppError from '../../utils/appError';
-import { getRepository } from 'typeorm';
-import { User } from '../../entity/User';
+import User from '../../model/User';
 import { IUser } from '../../interfaces/user.interfaces';
 
 export default async (requestBody: LoginUserDto): Promise<IUser> => {

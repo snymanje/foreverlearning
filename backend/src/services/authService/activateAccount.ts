@@ -1,6 +1,6 @@
 import AppError from '../../utils/appError';
 import crypto from 'crypto';
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import { getRepository } from 'typeorm';
 import { IUser } from '../../interfaces/user.interfaces';
 

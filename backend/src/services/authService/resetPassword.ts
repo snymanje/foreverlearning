@@ -1,4 +1,4 @@
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import { getRepository, MoreThan } from 'typeorm';
 import crypto from 'crypto';
 import AppError from '../../utils/appError';

@@ -1,13 +1,12 @@
 import { plainToClass } from 'class-transformer';
+import { ClassType } from 'class-transformer/ClassTransformer';
 import { validate, ValidationError } from 'class-validator';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import AppError from '../utils/appError';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function validateRequest(type: any): RequestHandler {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (req: Request, res: Response, next: NextFunction): any => {
+// Add to boilerplate
+function validateRequest<T>(type: ClassType<T>): RequestHandler {
+  return (req: Request, res: Response, next: NextFunction): void => {
     validate(plainToClass(type, req.body), { whitelist: true, forbidNonWhitelisted: true }).then(
       (errors: ValidationError[]) => {
         if (errors.length > 0) {

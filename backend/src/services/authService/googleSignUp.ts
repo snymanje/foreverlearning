@@ -1,5 +1,4 @@
-import { User } from '../../entity/User';
-import { getRepository } from 'typeorm';
+/* import User from '../../model/User';
 import AppError from '../../utils/appError';
 import { IUserWithActivationToken } from '../../interfaces/user.interfaces';
 import GoogleUserDto from '../../dtos/GoogleUserDto';
@@ -13,7 +12,6 @@ export default async (requestBody: GoogleUserDto): Promise<IUserWithActivationTo
   const { sub, name, email } = await authService.getGoogleUser(access_token);
 
   // check if the current user exists in the DB
-  const userRepository = await getRepository(User);
   const existingUser = await userRepository.findOne({ googleId: sub });
 
   if (existingUser && !existingUser.active)
@@ -36,3 +34,4 @@ export default async (requestBody: GoogleUserDto): Promise<IUserWithActivationTo
   const clientData = await newUser.toClientUserData();
   return { ...clientData, activationToken };
 };
+ */

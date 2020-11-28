@@ -1,4 +1,4 @@
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import { getRepository } from 'typeorm';
 import EditUserDto from '../../dtos/EditUserDto';
 import { IUser } from '../../interfaces/user.interfaces';
