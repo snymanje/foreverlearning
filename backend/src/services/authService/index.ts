@@ -1,22 +1,31 @@
 import localSignup from './localSignup';
-/* import googleSignup from './googleSignup';
-import localLogin from './localLogin';
-import googleLogin from './googleLogin';
 import activateAccount from './activateAccount';
-import getGoogleUser from './getGoogleUser';
-import createPwdResetToken from './createPwdResetToken';
+import localLogin from './localLogin';
 import resetPassword from './resetPassword';
+import createPwdResetToken from './createPwdResetToken';
+
+/* import googleSignup from './googleSignup';
+
+import googleLogin from './googleLogin';
+
+import getGoogleUser from './getGoogleUser';
+
+
 import updatePassword from './updatePassword'; */
 
 const authService = {
-  localSignup
-  /* googleSignup,
-  localLogin,
-  googleLogin,
+  localSignup,
   activateAccount,
-  getGoogleUser,
-  createPwdResetToken,
+  localLogin,
   resetPassword,
+  createPwdResetToken
+  /* googleSignup,
+  
+  googleLogin,
+  
+  getGoogleUser,
+ 
+  
   updatePassword */
 };
 

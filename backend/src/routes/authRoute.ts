@@ -32,7 +32,7 @@ const router = Router();
  *        200:
  *          description: Account successfully activated.
  */
-// router.post('/activate/:activationToken', validateRequest(EmptyDto), AuthController.activateAccount);
+router.post('/activate/:activationToken', validateRequest(EmptyDto), AuthController.activateAccount);
 
 /**
  * @swagger
@@ -53,7 +53,7 @@ const router = Router();
  *        200:
  *          description: User Logged in successfully
  */
-/* router.post('/localLogin', [validateRequest(LoginLocalUserDto)], AuthController.localLogin); */
+router.post('/localLogin', [validateRequest(LoginLocalUserDto)], AuthController.localLogin);
 
 //Login New Google User
 /**
@@ -176,7 +176,7 @@ router.post('/localSignup', [validateRequest(CreateLocalUserDto)], AuthControlle
  *        200:
  *          description: Password Reset email sent!
  */
-/* router.post('/forgotPassword', validateRequest(forgotPasswordDto), AuthController.forgotPassword); */
+router.post('/forgotPassword', validateRequest(forgotPasswordDto), AuthController.forgotPassword);
 
 /**
  * @swagger
@@ -203,7 +203,7 @@ router.post('/localSignup', [validateRequest(CreateLocalUserDto)], AuthControlle
  *        200:
  *          description: Password Reset successfully!
  */
-/* router.post('/resetPassword/:resetToken', validateRequest(resetPasswordDto), AuthController.resetPassword); */
+router.post('/resetPassword/:resetToken', validateRequest(resetPasswordDto), AuthController.resetPassword);
 
 /**
  * @swagger

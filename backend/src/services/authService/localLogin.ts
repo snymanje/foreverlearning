@@ -11,16 +11,15 @@ export default async (requestBody: LoginUserDto): Promise<IUser> => {
   }
 
   //Get user from database
-  const userRepository = getRepository(User);
-  const user = await userRepository.findOne({ where: { email } });
+  const user = await User.findOne({ email });
 
   // If password and encrypted password do not match
   if (!user || !(await user.checkIfUnencryptedPasswordIsValid(password))) {
     throw new AppError('Incorrect name or password.', 401);
   }
 
-  if (!user.isVerified())
+  if (!user.isVerified)
     throw new AppError('You have not activated your account yet, or you have a pending password reset.', 403);
 
-  return user.toClientUserData();
+  return user.toJSON();
 };

@@ -1,11 +1,24 @@
 import { Request } from 'express';
+import { Document } from 'mongoose';
 
-export interface IUser {
-  id: number;
-  authMethod: string;
+export interface IUser extends Document {
+  method: string;
   role: string;
+  active: boolean;
+  accountActivationToken: string;
+  accountActivationExpires: Date;
   name: string;
   email: string;
+  password: string;
+  passwordChangedAt: Date;
+  passwordResetToken: string;
+  passwordResetExpires: Date;
+  googleId: string;
+  isVerified: boolean;
+  changedPasswordAfter(decode: number): string;
+  createAccountActivationToken(): string;
+  checkIfUnencryptedPasswordIsValid(password: string): boolean;
+  createPasswordResettoken(): string;
 }
 
 export interface IUserEmail {

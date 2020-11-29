@@ -7,7 +7,6 @@ export default async (req: Request, res: Response): Promise<void> => {
   await emailService.sendActivationToken(user);
   res.status(201).json({
     status: 'Successfull',
-    message: `Activation email sent to ${user.email}`,
-    user
+    message: `Activation email sent to ${user.email}`
   });
 };

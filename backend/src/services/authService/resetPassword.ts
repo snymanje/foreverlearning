@@ -1,5 +1,4 @@
-import { User } from '../../model/User';
-import { getRepository, MoreThan } from 'typeorm';
+import User from '../../model/User';
 import crypto from 'crypto';
 import AppError from '../../utils/appError';
 import { IUser } from '../../interfaces/user.interfaces';
@@ -12,19 +11,20 @@ export default async (requestBody: ResetPasswordDto, resetToken: string): Promis
 
   const hashedToken = await crypto.createHash('sha256').update(resetToken).digest('hex');
 
-  const userRepository = await getRepository(User);
-  const user = await userRepository.findOne({
+  const user = await User.findOne({
     passwordResetToken: hashedToken,
-    passwordResetExpires: MoreThan(new Date(Date.now()))
+    passwordResetExpires: { $gt: new Date(Date.now()) }
   });
 
   if (!user) {
     throw new AppError('The user for this token does not exist or this token has expired', 400);
   }
 
-  await user.updatePassword(password);
+  user.password = password;
+  user.passwordResetExpires = undefined;
+  user.passwordResetToken = undefined;
 
-  await userRepository.save(user);
+  await user.save();
 
-  return user.toClientUserData();
+  return user.toJSON();
 };

@@ -5,7 +5,7 @@ import AppError from '../../utils/appError';
 
 export default async (user: IUserWithActivationToken): Promise<void> => {
   const activateAccountUrl = `http://${config.clientUrl}/activateAccount/${user.activationToken}`;
-
+  console.log(user);
   const message = `<p>
       Thanks for registering, please activate your account to get started. Token
       <a

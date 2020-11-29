@@ -1,22 +1,8 @@
-import { model, Schema, Model, Document, HookNextFunction } from 'mongoose';
+import { IUser } from './../interfaces/user.interfaces';
+import { model, Schema, Model, HookNextFunction } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-
-interface IUser extends Document {
-  method: string;
-  role: string;
-  active: boolean;
-  accountActivationToken: string;
-  accountActivationExpires: Date;
-  name: string;
-  email: string;
-  password: string;
-  passwordChangedAt: Date;
-  passwordResetToken: string;
-  passwordResetExpires: Date;
-  googleId: string;
-}
 
 const userSchema: Schema = new Schema(
   {
@@ -65,7 +51,8 @@ const userSchema: Schema = new Schema(
       type: String
     },
     passwordResetExpires: {
-      type: Date
+      type: Date,
+      default: undefined
     },
     googleId: {
       type: String
@@ -75,7 +62,7 @@ const userSchema: Schema = new Schema(
 );
 
 userSchema.virtual('isVerified').get(function () {
-  return !(this.active && this.passwordResetExpires === undefined);
+  return this.active && this.passwordResetExpires === undefined;
 });
 
 userSchema.pre<IUser>('save', async function (next) {
@@ -87,14 +74,14 @@ userSchema.pre<IUser>('save', async function (next) {
     this.passwordChangedAt = new Date(Date.now() - 1000);
     next();
   } catch (error) {
-    next(error);
+    return error;
   }
 });
 
 userSchema.pre<IUser>('save', async function (next: HookNextFunction) {
   try {
     if (this.method !== 'local') {
-      next();
+      return next();
     }
     // only runs if password was modified
     if (!this.isModified('password')) return next();
@@ -104,19 +91,15 @@ userSchema.pre<IUser>('save', async function (next: HookNextFunction) {
 
     next();
   } catch (error) {
-    next(error);
+    return error;
   }
 });
 
-userSchema.methods.correctPassword = async function (
-  candidatePassword: string,
-  userPassword: string,
-  next: HookNextFunction
-) {
+userSchema.methods.checkIfUnencryptedPasswordIsValid = async function (unencryptedPassword: string): Promise<boolean> {
   try {
-    return bcrypt.compare(candidatePassword, userPassword);
+    return await bcrypt.compare(unencryptedPassword, this.password);
   } catch (err) {
-    next(err);
+    return err;
   }
 };
 
@@ -125,50 +108,55 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp: number, next: 
     if (this.method !== 'local') {
       next();
     }
-    if (this.local.passwordChangedAt) {
+    if (this.passwordChangedAt) {
       const changedTimestamp = Number(this.passwordChangedAt.getTime() / 1000);
       return JWTTimestamp < changedTimestamp;
     }
     // Not changed
     return false;
   } catch (error) {
-    next(error);
+    return error;
   }
 };
 
-userSchema.methods.createPasswordResettoken = function (next: HookNextFunction) {
+userSchema.methods.createPasswordResettoken = async function () {
   try {
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    this.local.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    const resetToken = await crypto.randomBytes(32).toString('hex');
+    this.passwordResetToken = await crypto.createHash('sha256').update(resetToken).digest('hex');
 
-    this.local.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
     return resetToken;
   } catch (err) {
-    next(err);
+    return err;
   }
 };
 
-userSchema.methods.createAccountActivationToken = function (next: HookNextFunction) {
+userSchema.methods.createAccountActivationToken = async function () {
   try {
-    const activationToken = crypto.randomBytes(32).toString('hex');
-    this.accountActivationToken = crypto.createHash('sha256').update(activationToken).digest('hex');
+    const activationToken = await crypto.randomBytes(32).toString('hex');
+    this.accountActivationToken = await crypto.createHash('sha256').update(activationToken).digest('hex');
 
     this.accountActivationExpires = Date.now() + 10 * 60 * 1000;
 
     return activationToken;
   } catch (err) {
-    next(err);
+    return err;
   }
 };
 
 userSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     // remove these props when object is serialized
-    // delete ret._id;
+    delete ret._id;
     delete ret.password;
+    delete ret.passwordChangedAt;
+    delete ret.passwordResetToken;
+    delete ret.passwordResetExpires;
+    delete ret.accountActivationToken;
+    delete ret.accountActivationExpires;
   }
 });
 
