@@ -1,4 +1,4 @@
-/* import User from '../../model/User';
+import User from '../../model/User';
 import AppError from '../../utils/appError';
 import { IUserWithActivationToken } from '../../interfaces/user.interfaces';
 import GoogleUserDto from '../../dtos/GoogleUserDto';
@@ -12,7 +12,7 @@ export default async (requestBody: GoogleUserDto): Promise<IUserWithActivationTo
   const { sub, name, email } = await authService.getGoogleUser(access_token);
 
   // check if the current user exists in the DB
-  const existingUser = await userRepository.findOne({ googleId: sub });
+  const existingUser = await User.findOne({ googleId: sub });
 
   if (existingUser && !existingUser.active)
     throw new AppError('You already have an account that is not activated yet', 403);
@@ -23,15 +23,13 @@ export default async (requestBody: GoogleUserDto): Promise<IUserWithActivationTo
 
   // Id user does not exist create a new one`);
   const newUser = new User();
-  newUser.authMethod = 'google';
+  newUser.method = 'google';
   newUser.googleId = sub;
   newUser.name = name;
   newUser.email = email;
 
   const activationToken = await newUser.createAccountActivationToken();
-  await userRepository.save(newUser);
+  await newUser.save();
 
-  const clientData = await newUser.toClientUserData();
-  return { ...clientData, activationToken };
+  return { ...newUser.toJSON(), activationToken };
 };
- */

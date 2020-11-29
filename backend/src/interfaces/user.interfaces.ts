@@ -19,6 +19,7 @@ export interface IUser extends Document {
   createAccountActivationToken(): string;
   checkIfUnencryptedPasswordIsValid(password: string): boolean;
   createPasswordResettoken(): string;
+  updatePassword(password: string): void;
 }
 
 export interface IUserEmail {

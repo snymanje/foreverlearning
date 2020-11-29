@@ -20,10 +20,7 @@ export default async (requestBody: ResetPasswordDto, resetToken: string): Promis
     throw new AppError('The user for this token does not exist or this token has expired', 400);
   }
 
-  user.password = password;
-  user.passwordResetExpires = undefined;
-  user.passwordResetToken = undefined;
-
+  user.updatePassword(password);
   await user.save();
 
   return user.toJSON();

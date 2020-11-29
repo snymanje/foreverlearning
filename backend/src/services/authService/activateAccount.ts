@@ -27,6 +27,8 @@ export default async (activationToken: string): Promise<IUser> => {
   }
 
   user.active = true;
+  user.accountActivationToken = undefined;
+  user.accountActivationExpires = undefined;
   await user.save();
 
   return user.toJSON();

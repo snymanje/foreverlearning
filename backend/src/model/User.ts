@@ -41,8 +41,7 @@ const userSchema: Schema = new Schema(
     password: {
       type: String,
       // required: [true, 'Please provide a password'],
-      minlength: 8,
-      select: false // Will not be shown in queries
+      minlength: 8
     },
     passwordChangedAt: {
       type: Date
@@ -97,7 +96,18 @@ userSchema.pre<IUser>('save', async function (next: HookNextFunction) {
 
 userSchema.methods.checkIfUnencryptedPasswordIsValid = async function (unencryptedPassword: string): Promise<boolean> {
   try {
-    return await bcrypt.compare(unencryptedPassword, this.password);
+    return bcrypt.compare(unencryptedPassword, this.password);
+  } catch (err) {
+    return err;
+  }
+};
+
+userSchema.methods.updatePassword = async function (password: string) {
+  try {
+    this.passwordChangedAt = new Date(Date.now());
+    this.password = password;
+    this.passwordResetToken = undefined;
+    this.passwordResetExpires = undefined;
   } catch (err) {
     return err;
   }

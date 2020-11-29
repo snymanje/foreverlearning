@@ -75,7 +75,7 @@ router.post('/localLogin', [validateRequest(LoginLocalUserDto)], AuthController.
  *        200:
  *          description: User logged in successfully.
  */
-/* router.post('/googleLogin', [validateRequest(GoogleUserDto)], AuthController.googleLogin); */
+router.post('/googleLogin', [validateRequest(GoogleUserDto)], AuthController.googleLogin);
 
 //SignUp new user
 /**
@@ -119,7 +119,7 @@ router.post('/localSignup', [validateRequest(CreateLocalUserDto)], AuthControlle
  *        200:
  *          description: User signed up successfully.
  */
-/* router.post('/googleSignup', [validateRequest(GoogleUserDto)], AuthController.googleSignUp); */
+router.post('/googleSignup', [validateRequest(GoogleUserDto)], AuthController.googleSignUp);
 
 /**
  * @swagger
@@ -134,7 +134,7 @@ router.post('/localSignup', [validateRequest(CreateLocalUserDto)], AuthControlle
  *        200:
  *          description: User logged out successfully
  */
-/* router.post('/logout', AuthController.logout); */
+router.post('/logout', AuthController.logout);
 
 /**
  * @swagger
@@ -155,7 +155,7 @@ router.post('/localSignup', [validateRequest(CreateLocalUserDto)], AuthControlle
  *        200:
  *          description: Reissued access token
  */
-/* router.post('/refreshToken', validateRequest(EmptyDto), extractRefreshToken, AuthController.refreshToken); */
+router.post('/refreshToken', validateRequest(EmptyDto), extractRefreshToken, AuthController.refreshToken);
 
 /**
  * @swagger
@@ -224,6 +224,6 @@ router.post('/resetPassword/:resetToken', validateRequest(resetPasswordDto), Aut
  *        200:
  *          description: Password updated successfully!
  */
-/* router.post('/updatePassword', validateRequest(updatePasswordDto), checkJwt, AuthController.updatePassword); */
+router.post('/updatePassword', validateRequest(updatePasswordDto), checkJwt, AuthController.updatePassword);
 
 export default router;
