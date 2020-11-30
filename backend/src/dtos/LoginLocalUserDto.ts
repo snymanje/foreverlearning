@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 /**
  * @swagger
@@ -24,6 +24,7 @@ class loginUserDto {
   public password: string;
 
   @IsString()
+  @IsEmail()
   public email: string;
 }
 

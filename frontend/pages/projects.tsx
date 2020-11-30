@@ -1,12 +1,16 @@
+import { useContext } from 'react';
 import Head from 'next/head';
-import { FormEvent } from 'react';
 import Header from '../components/Header';
+import { ProjectContext } from '../context/projects/ProjectContext';
 
-const projects: React.FunctionComponent = () => {
-  const addProjects = (e: FormEvent) => {
+const projects: React.FC = () => {
+  const { addProject, projects } = useContext(ProjectContext);
+
+  const addProjectHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Add project');
+    addProject('testing');
   };
+
   return (
     <div>
       <Head>
@@ -19,7 +23,6 @@ const projects: React.FunctionComponent = () => {
           crossOrigin="anonymous"
         />
       </Head>
-
       <div className="">
         <Header />
         <main className="">
@@ -27,7 +30,7 @@ const projects: React.FunctionComponent = () => {
             <div className="flex flex-col items-center justify-center text-gray-700">
               <h2 className="font-bold text-2xl">Add Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
-                <form onSubmit={(e) => addProjects(e)} className="flex flex-col w-48 md:w-96">
+                <form onSubmit={(e) => addProjectHandler(e)} className="flex flex-col w-48 md:w-96">
                   <div className="flex flex-col mt-5">
                     <label htmlFor="title" className="text-lg text-gray-700">
                       Title
@@ -94,60 +97,37 @@ const projects: React.FunctionComponent = () => {
             <div className="flex flex-col items-center justify-start text-gray-700">
               <h2 className="font-bold text-2xl mt-6 lg:mt-0">Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
-                <div className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
-                  <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
-                    <div>
-                      <h3 className="font-bold text-lg">Build Reddit clone</h3>
-                      <p className="text-md text-yellow-700 font-medium">
-                        Build with Nextjs, tailwindcss, TypeOrm and Node
-                      </p>
-                      <p className="mt-4 text-sm">
-                        Channel: <span className=" font-medium">Youtube</span>
-                      </p>
-                      <p className="mt-1 text-sm">
-                        Author: <span className=" font-medium">Jean Snyman</span>
-                      </p>
-                      <p className="mt-1 text-sm">
-                        Length: <span className=" font-medium">3 hours</span>
-                      </p>
+                {projects.map((project) => {
+                  return (
+                    <div className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
+                      <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
+                        <div>
+                          <h3 className="font-bold text-lg">{project.title}</h3>
+                          <p className="text-md text-yellow-700 font-medium">
+                            Build with Nextjs, tailwindcss, TypeOrm and Node
+                          </p>
+                          <p className="mt-4 text-sm">
+                            Channel: <span className=" font-medium">Youtube</span>
+                          </p>
+                          <p className="mt-1 text-sm">
+                            Author: <span className=" font-medium">Jean Snyman</span>
+                          </p>
+                          <p className="mt-1 text-sm">
+                            Length: <span className=" font-medium">3 hours</span>
+                          </p>
+                        </div>
+                        <div className="self-end min-w-max">
+                          <i className="fas fa-edit text-xl cursor-pointer" style={{ color: 'red' }}></i>
+                          <i className="fas fa-trash text-xl ml-6 cursor-pointer" style={{ color: 'red' }}></i>
+                        </div>
+                      </div>
                     </div>
-                    <div className="self-end min-w-max">
-                      <i className="fas fa-edit text-xl cursor-pointer" style={{ color: 'red' }}></i>
-                      <i className="fas fa-trash text-xl ml-6 cursor-pointer" style={{ color: 'red' }}></i>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="max-w-2xl border border-solid border-gray-200 shadow-md hover:shadow-lg transition ease-linear duration-200 cursor-pointer">
-                  <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
-                    <div>
-                      <h3 className="font-bold text-lg">Microservices with Node JS and React</h3>
-                      <p className="text-md text-yellow-700 font-medium">
-                        Build, deploy, and scale an E-Commerce app using Microservices built with Node, React, Docker
-                        and Kubernetes
-                      </p>
-                      <p className="mt-4 text-sm">
-                        Channel: <span className=" font-medium">Youtube</span>
-                      </p>
-                      <p className="mt-1 text-sm">
-                        Author: <span className=" font-medium">Jean Snyman</span>
-                      </p>
-                      <p className="mt-1 text-sm">
-                        Length: <span className=" font-medium">3 hours</span>
-                      </p>
-                    </div>
-                    <div className="self-end min-w-max">
-                      <i className="fas fa-edit text-xl cursor-pointer" style={{ color: 'red' }}></i>
-                      <i className="fas fa-trash text-xl ml-6 cursor-pointer" style={{ color: 'red' }}></i>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </main>
-
-        <footer></footer>
       </div>
     </div>
   );
