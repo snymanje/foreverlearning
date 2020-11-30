@@ -1,12 +1,18 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useReducer } from 'react';
+import { projectReducer } from '../../reducers/projectReducer';
 
 interface IProject {
   title: string;
 }
 
+interface IDispatch {
+  type: string;
+  project: IProject;
+}
+
 interface IProjectContext {
-  addProject(title: string): void;
   projects: IProject[];
+  dispatch: React.Dispatch<IDispatch>;
 }
 
 export const ProjectContext = createContext<IProjectContext | undefined>(undefined);
@@ -16,20 +22,9 @@ export type Props = {
 };
 
 const ProjectContextProvider = (props: Props): JSX.Element => {
-  const [projects, setProjects] = useState<IProject[]>([
-    {
-      title: 'Build my first react project with Context and Hooks'
-    },
-    {
-      title: 'Portfolio site'
-    }
-  ]);
+  const [projects, dispatch] = useReducer(projectReducer, []);
 
-  const addProject = async (title: string) => {
-    setProjects([...projects, { title: title }]);
-  };
-
-  return <ProjectContext.Provider value={{ projects, addProject }}>{props.children}</ProjectContext.Provider>;
+  return <ProjectContext.Provider value={{ projects, dispatch }}>{props.children}</ProjectContext.Provider>;
 };
 
 export default ProjectContextProvider;

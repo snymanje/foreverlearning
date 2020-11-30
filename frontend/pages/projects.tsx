@@ -1,14 +1,21 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
 import { ProjectContext } from '../context/projects/ProjectContext';
 
 const projects: React.FC = () => {
-  const { addProject, projects } = useContext(ProjectContext);
+  const { projects, dispatch } = useContext(ProjectContext);
+
+  const [title, setTitle] = useState<string>('');
 
   const addProjectHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    addProject('testing');
+    dispatch({
+      type: 'ADD_PROJECT',
+      project: {
+        title
+      }
+    });
   };
 
   return (
@@ -39,6 +46,7 @@ const projects: React.FC = () => {
                       type="text"
                       name="title"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col my-3">
