@@ -1,9 +1,13 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
-import { projectReducer, IProject, IDispatch, IProjectState } from '../../reducers/projectReducer';
+import axios from 'axios';
+import { projectReducer, IProject, Actions, IProjectState } from '../../reducers/projectReducer';
 
 interface IProjectContext {
   projects: IProject[];
-  dispatch: React.Dispatch<IDispatch>;
+  dispatch: React.Dispatch<Actions>;
+  getProjects: () => void;
+  addProject: (project: IProject) => void;
+  deleteProject: (id: string) => void;
 }
 
 export const ProjectContext = createContext<IProjectContext | undefined>(undefined);
@@ -13,13 +17,51 @@ export type Props = {
 };
 
 const ProjectContextProvider = (props: Props): JSX.Element => {
-  const initialState = {
-    projects: []
+  const initialState: IProjectState = {
+    projects: [],
+    loading: false
   };
   const [state, dispatch] = useReducer(projectReducer, initialState);
 
+  // GET Projects
+  const getProjects = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/v1/project');
+      dispatch({ type: 'GET_PROJECTS', payload: res.data });
+    } catch (err) {
+      dispatch({ type: 'PROJECT_ERROR', payload: err.response.msg });
+    }
+  };
+
+  // Add Project
+  const addProject = async (project: IProject) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      const res = await axios.post('http://localhost:5000/api/v1/project', project, config);
+      dispatch({ type: 'ADD_PROJECT', payload: res.data });
+    } catch (err) {
+      dispatch({ type: 'PROJECT_ERROR', payload: err.response.msg });
+    }
+  };
+
+  // Delete Project
+  const deleteProject = async (project) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/v1/project/${project._id}`);
+      dispatch({ type: 'DELETE_PROJECT', payload: project });
+    } catch (err) {
+      dispatch({ type: 'PROJECT_ERROR', payload: err.response.msg });
+    }
+  };
+
   return (
-    <ProjectContext.Provider value={{ projects: state.projects, dispatch }}>{props.children}</ProjectContext.Provider>
+    <ProjectContext.Provider value={{ projects: state.projects, dispatch, getProjects, addProject, deleteProject }}>
+      {props.children}
+    </ProjectContext.Provider>
   );
 };
 

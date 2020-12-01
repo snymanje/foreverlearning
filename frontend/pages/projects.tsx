@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
 import { ProjectContext } from '../context/projects/ProjectContext';
 
 const projects: React.FC = () => {
-  const { projects, dispatch } = useContext(ProjectContext);
+  const projectContext = useContext(ProjectContext);
+  const { projects, getProjects, addProject, deleteProject } = projectContext;
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -12,18 +13,24 @@ const projects: React.FC = () => {
   const [instructor, setInstructor] = useState<string>('');
   const [duration, setDuration] = useState<number>(0);
 
+  useEffect(() => {
+    getProjects();
+    console.log(projects);
+  }, []);
+
   const addProjectHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch({
-      type: 'ADD_PROJECT',
-      project: {
-        title,
-        description,
-        channel,
-        instructor,
-        duration
-      }
+    addProject({
+      title,
+      description,
+      channel,
+      instructor,
+      duration
     });
+  };
+
+  const deleteProjectHandler = async (project) => {
+    deleteProject(project);
   };
 
   return (
@@ -101,7 +108,7 @@ const projects: React.FC = () => {
                       type="text"
                       name="duration"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setDuration(e.target.value)}
+                      onChange={(e) => setDuration(Number(e.target.value))}
                     />
                   </div>
                   <div>
@@ -119,7 +126,7 @@ const projects: React.FC = () => {
               <div className="flex flex-col flex-wrap mt-6 mx-4">
                 {projects.map((project) => {
                   return (
-                    <div key={project.title} className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
+                    <div key={project._id} className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
                       <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
                         <div>
                           <h3 className="font-bold text-lg">{project.title}</h3>
@@ -137,8 +144,12 @@ const projects: React.FC = () => {
                           </p>
                         </div>
                         <div className="self-end min-w-max">
-                          <i className="fas fa-edit text-xl cursor-pointer" style={{ color: 'red' }}></i>
-                          <i className="fas fa-trash text-xl ml-6 cursor-pointer" style={{ color: 'red' }}></i>
+                          <i className="fas fa-edit text-xl cursor-pointer" style={{ color: 'green' }}></i>
+                          <i
+                            className="fas fa-trash text-xl ml-6 cursor-pointer"
+                            style={{ color: 'red' }}
+                            onClick={() => deleteProjectHandler(project)}
+                          ></i>
                         </div>
                       </div>
                     </div>

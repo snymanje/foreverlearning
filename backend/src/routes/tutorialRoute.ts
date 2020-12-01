@@ -1,21 +1,21 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
-import { Tutorial } from '../model/Tutorial';
+import Tutorial from '../model/Tutorial';
 
 const router = Router();
 
+router.get('/', async (req, res) => {
+  const tutorials = await Tutorial.find({});
+
+  res.json(tutorials);
+});
+
 router.post('/', async (req, res) => {
-  const userRepository = getRepository(Tutorial);
+  const { title } = req.body;
 
   const tutorial = new Tutorial();
-  tutorial.text = 'sdfsfsf';
-  tutorial.title = 'local';
-  tutorial.description = 'werwerr';
-  tutorial.channel = 'sdfsdfsdf';
-  tutorial.instructor = 'sdfsdfsd';
-  tutorial.duration = 30;
+  tutorial.title = title;
 
-  const newTutorial = await userRepository.save(tutorial);
+  const newTutorial = await tutorial.save();
 
   res.json(newTutorial.toJSON());
 });

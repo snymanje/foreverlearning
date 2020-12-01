@@ -1,8 +1,7 @@
 {
   "name": "foreverlearning",
   "version": "0.0.1",
-  "description": "Todo app for Side Projetcs and Tutorials",
-  "proxy": "http://localhost:5000",
+  "description": "Todo app for Side Projetcs and Tutorials",  
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.0",
