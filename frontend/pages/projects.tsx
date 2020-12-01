@@ -7,13 +7,21 @@ const projects: React.FC = () => {
   const { projects, dispatch } = useContext(ProjectContext);
 
   const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [channel, setChannel] = useState<string>('');
+  const [instructor, setInstructor] = useState<string>('');
+  const [duration, setDuration] = useState<number>(0);
 
   const addProjectHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch({
       type: 'ADD_PROJECT',
       project: {
-        title
+        title,
+        description,
+        channel,
+        instructor,
+        duration
       }
     });
   };
@@ -34,7 +42,7 @@ const projects: React.FC = () => {
         <Header />
         <main className="">
           <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-1 mt-8">
-            <div className="flex flex-col items-center justify-center text-gray-700">
+            <div className="flex flex-col items-center text-gray-700">
               <h2 className="font-bold text-2xl">Add Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
                 <form onSubmit={(e) => addProjectHandler(e)} className="flex flex-col w-48 md:w-96">
@@ -57,6 +65,7 @@ const projects: React.FC = () => {
                       type="text"
                       name="description"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col my-3">
@@ -67,6 +76,7 @@ const projects: React.FC = () => {
                       name="channel"
                       id="channel"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setChannel(e.target.value)}
                     >
                       <option value="youtube">YouTube</option>
                       <option value="udemy">Udemy</option>
@@ -80,6 +90,7 @@ const projects: React.FC = () => {
                       type="text"
                       name="instructor"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setInstructor(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col my-3">
@@ -90,6 +101,7 @@ const projects: React.FC = () => {
                       type="text"
                       name="duration"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setDuration(e.target.value)}
                     />
                   </div>
                   <div>
@@ -107,7 +119,7 @@ const projects: React.FC = () => {
               <div className="flex flex-col flex-wrap mt-6 mx-4">
                 {projects.map((project) => {
                   return (
-                    <div className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
+                    <div key={project.title} className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
                       <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
                         <div>
                           <h3 className="font-bold text-lg">{project.title}</h3>

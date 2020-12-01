@@ -1,14 +1,5 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
-import { projectReducer } from '../../reducers/projectReducer';
-
-interface IProject {
-  title: string;
-}
-
-interface IDispatch {
-  type: string;
-  project: IProject;
-}
+import { projectReducer, IProject, IDispatch, IProjectState } from '../../reducers/projectReducer';
 
 interface IProjectContext {
   projects: IProject[];
@@ -22,9 +13,14 @@ export type Props = {
 };
 
 const ProjectContextProvider = (props: Props): JSX.Element => {
-  const [projects, dispatch] = useReducer(projectReducer, []);
+  const initialState = {
+    projects: []
+  };
+  const [state, dispatch] = useReducer(projectReducer, initialState);
 
-  return <ProjectContext.Provider value={{ projects, dispatch }}>{props.children}</ProjectContext.Provider>;
+  return (
+    <ProjectContext.Provider value={{ projects: state.projects, dispatch }}>{props.children}</ProjectContext.Provider>
+  );
 };
 
 export default ProjectContextProvider;
