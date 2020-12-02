@@ -1,9 +1,24 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 import SocialButtons from '../components/SocialButtons';
+import { AuthContext } from '../context/auth/authContext';
 import Head from 'next/head';
 
 const login: React.FC = () => {
+  const authContext = useContext(AuthContext);
+  const { user, loading, error, localLogin } = authContext;
+
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const localLoginHander = (e: React.FormEvent) => {
+    e.preventDefault();
+    localLogin({
+      email,
+      password
+    });
+  };
+
   return (
     <>
       <Head>
@@ -21,7 +36,9 @@ const login: React.FC = () => {
             </div>
             <div className="flex flex-col h-full justify-center items-center trans">
               <p className="text-center text-3xl text-gray-700">Sign into your account</p>
-              <form className="flex flex-col pt-3 md:pt-8 w-2/3 md:w-1/2" onSubmit={(e) => e.preventDefault()}>
+              {user && <p>{user.email}</p>}
+              {error && <p>{error}</p>}
+              <form className="flex flex-col pt-3 md:pt-8 w-2/3 md:w-1/2" onSubmit={(e) => localLoginHander(e)}>
                 <div className="flex flex-col pt-4">
                   <label htmlFor="email" className="text-lg text-gray-700">
                     Email
@@ -30,6 +47,7 @@ const login: React.FC = () => {
                     type="email"
                     id="email"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -41,6 +59,7 @@ const login: React.FC = () => {
                     type="password"
                     id="password"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 

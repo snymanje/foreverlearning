@@ -1,9 +1,10 @@
 import deleteProject from './deleteProject';
-/* import addProject from './addProject';
-import getProjects from './getProjects'; */
+import addProject from './addProject';
+/* import getProjects from './getProjects';  */
 
 const projectService = {
-  deleteProject
+  deleteProject,
+  addProject
   /* getProjects,
   addProject */
 };

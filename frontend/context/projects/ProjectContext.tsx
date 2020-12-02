@@ -1,12 +1,12 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
 import axios from 'axios';
-import { projectReducer, IProject, Actions, IProjectState } from '../../reducers/projectReducer';
+import { projectReducer, IProject, Actions, IProjectState } from './projectReducer';
 
 interface IProjectContext {
   projects: IProject[];
   loading: boolean;
   error: string;
-  dispatch: React.Dispatch<Actions>;
+  /*   dispatch: React.Dispatch<Actions>; */
   getProjects: () => void;
   addProject: (project: IProject) => void;
   deleteProject: (id: string) => void;
@@ -69,7 +69,6 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
         projects: state.projects,
         error: state.error,
         loading: state.loading,
-        dispatch,
         getProjects,
         addProject,
         deleteProject

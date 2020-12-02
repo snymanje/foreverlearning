@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
-interface IProject extends Document {
+export interface IProject extends Document {
   title: string;
 }
 
@@ -14,7 +14,14 @@ const projectSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-projectSchema.get('toJSON');
+projectSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false
+  /* transform: function (_, ret) {
+    // remove these props when object is serialized
+    //delete ret.title;
+  } */
+});
 
 // Model names always start with capital letter
 const Project: Model<IProject> = model('Project', projectSchema);

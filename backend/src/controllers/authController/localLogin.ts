@@ -9,6 +9,7 @@ export default async (req: Request, res: Response): Promise<void> => {
   res.status(200).json({
     status: 'Successfull',
     message: `${user.email} logged in successfully.`,
-    data: { ...tokens }
+    tokens: { ...tokens },
+    user
   });
 };
