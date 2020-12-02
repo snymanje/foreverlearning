@@ -32,7 +32,8 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
       const res = await axios.get('http://localhost:5000/api/v1/project');
       dispatch({ type: 'GET_PROJECTS', payload: res.data });
     } catch (err) {
-      dispatch({ type: 'PROJECT_ERROR', payload: err.response.msg });
+      console.log(err.response);
+      dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
     }
   };
 
@@ -57,7 +58,8 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
       await axios.delete(`http://localhost:5000/api/v1/project/${project._id}`);
       dispatch({ type: 'DELETE_PROJECT', payload: project });
     } catch (err) {
-      dispatch({ type: 'PROJECT_ERROR', payload: err.response.msg });
+      console.log(err.response);
+      dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
     }
   };
 

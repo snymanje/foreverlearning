@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import Project from '../../model/Projects';
+import projectService from '../../services/projectService';
 
 export default async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-
-  await Project.findByIdAndRemove(id);
-
+  await projectService.deleteProject(id);
   res.send('Project removed successfully');
 };
