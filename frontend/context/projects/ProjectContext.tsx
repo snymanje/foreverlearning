@@ -4,6 +4,8 @@ import { projectReducer, IProject, Actions, IProjectState } from '../../reducers
 
 interface IProjectContext {
   projects: IProject[];
+  loading: boolean;
+  error: string;
   dispatch: React.Dispatch<Actions>;
   getProjects: () => void;
   addProject: (project: IProject) => void;
@@ -19,7 +21,8 @@ export type Props = {
 const ProjectContextProvider = (props: Props): JSX.Element => {
   const initialState: IProjectState = {
     projects: [],
-    loading: false
+    loading: false,
+    error: null
   };
   const [state, dispatch] = useReducer(projectReducer, initialState);
 
@@ -44,7 +47,7 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
       const res = await axios.post('http://localhost:5000/api/v1/project', project, config);
       dispatch({ type: 'ADD_PROJECT', payload: res.data });
     } catch (err) {
-      dispatch({ type: 'PROJECT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
     }
   };
 
@@ -59,7 +62,17 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
   };
 
   return (
-    <ProjectContext.Provider value={{ projects: state.projects, dispatch, getProjects, addProject, deleteProject }}>
+    <ProjectContext.Provider
+      value={{
+        projects: state.projects,
+        error: state.error,
+        loading: state.loading,
+        dispatch,
+        getProjects,
+        addProject,
+        deleteProject
+      }}
+    >
       {props.children}
     </ProjectContext.Provider>
   );

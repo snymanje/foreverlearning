@@ -1,31 +1,12 @@
 import { Router } from 'express';
-import Project from '../model/Projects';
+import projectController from '../controllers/projectController/';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-  const projects = await Project.find({});
+router.get('/', projectController.getProjects);
 
-  res.json(projects);
-});
+router.post('/', projectController.addProject);
 
-router.post('/', async (req, res) => {
-  const { title } = req.body;
-
-  const project = new Project();
-  project.title = title;
-
-  const newProject = await project.save();
-
-  res.json(newProject.toJSON());
-});
-
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-
-  await Project.findByIdAndRemove(id);
-
-  res.send('Project removed successfully');
-});
+router.delete('/:id', projectController.deleteProject);
 
 export default router;

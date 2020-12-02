@@ -5,7 +5,7 @@ import { ProjectContext } from '../context/projects/ProjectContext';
 
 const projects: React.FC = () => {
   const projectContext = useContext(ProjectContext);
-  const { projects, getProjects, addProject, deleteProject } = projectContext;
+  const { projects, error, getProjects, addProject, deleteProject } = projectContext;
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -124,6 +124,9 @@ const projects: React.FC = () => {
             <div className="flex flex-col items-center justify-start text-gray-700">
               <h2 className="font-bold text-2xl mt-6 lg:mt-0">Projects</h2>
               <div className="flex flex-col flex-wrap mt-6 mx-4">
+                {error && (
+                  <p className="border border-solid border-red-500 p-3 text-red-500 text-center mb-4">{error}</p>
+                )}
                 {projects.map((project) => {
                   return (
                     <div key={project._id} className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
