@@ -1,15 +1,23 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState, ReactPropTypes, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import SocialButtons from '../components/SocialButtons';
 import { AuthContext } from '../context/auth/authContext';
 import Head from 'next/head';
 
-const login: React.FC = () => {
+const login: React.FC<ReactPropTypes> = (): JSX.Element => {
+  const router = useRouter();
   const authContext = useContext(AuthContext);
   const { user, loading, error, localLogin } = authContext;
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  useEffect(() => {
+    if (user) {
+      router.push('/projects');
+    }
+  }, [user, router]);
 
   const localLoginHander = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +71,11 @@ const login: React.FC = () => {
                   />
                 </div>
 
-                <input type="submit" value="Log In" className="btn-primary mt-8 cursor-pointer" />
+                <input
+                  type="submit"
+                  value={loading ? 'Loading...' : 'Log In'}
+                  className="btn-primary mt-8 cursor-pointer"
+                />
               </form>
               <div className="w-2/3 md:w-1/2">
                 <SocialButtons />

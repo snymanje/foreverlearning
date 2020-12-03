@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 import { authReducer, IUser, IUserState } from './authReducer';
 
@@ -11,29 +11,36 @@ interface IAuthContext {
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
-export type Props = {
-  children: ReactNode;
-};
-
-const AuthContextProvider = (props: Props): JSX.Element => {
+const AuthContextProvider: React.FC = ({ children }) => {
   const initialState: IUserState = {
     user: null,
     loading: false,
     error: null
   };
+
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  // Load user from local storage
+  useEffect(() => {
+    const userForLocalStorage = localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user') as string)
+      : null;
+
+    dispatch({ type: 'LOAD_USER_LOCALSTORAGE', payload: userForLocalStorage });
+  }, []);
 
   // LOGIN
   const localLogin = async (formData: { email: string; password: string }) => {
+    dispatch({ type: 'LOAD_USER' });
     const config = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
     try {
-      const res = await axios.post('http://localhost:5000/api/v1/auth/locallogin', formData, config);
-      console.log(res);
-      dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.user });
+      const { data } = await axios.post('http://localhost:5000/api/v1/auth/locallogin', formData, config);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      dispatch({ type: 'LOGIN_SUCCESS', payload: data.user });
     } catch (err) {
       dispatch({ type: 'LOGIN_FAIL', payload: err.response.data.message });
     }
@@ -48,7 +55,7 @@ const AuthContextProvider = (props: Props): JSX.Element => {
         localLogin
       }}
     >
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 };

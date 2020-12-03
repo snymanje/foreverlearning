@@ -1,5 +1,3 @@
-import { error } from 'console';
-
 export interface IUser {
   _id: string;
   name: string;
@@ -18,16 +16,24 @@ export type Actions =
       payload: IUser;
     }
   | {
+      type: 'LOAD_USER_LOCALSTORAGE';
+      payload: IUser;
+    }
+  | {
       type: 'LOGIN_FAIL';
       payload: string;
     }
   | {
       type: 'LOAD_USER';
-      payload: boolean;
     };
 
 export const authReducer = (state: IUserState, action: Actions): IUserState => {
   switch (action.type) {
+    case 'LOAD_USER_LOCALSTORAGE':
+      return {
+        ...state,
+        user: action.payload
+      };
     case 'LOAD_USER':
       return {
         ...state,
@@ -37,7 +43,8 @@ export const authReducer = (state: IUserState, action: Actions): IUserState => {
       return {
         ...state,
         user: action.payload,
-        loading: false
+        loading: false,
+        error: null
       };
     case 'LOGIN_FAIL':
       return {
