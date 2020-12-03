@@ -1,23 +1,23 @@
-import React, { useContext, useState, ReactPropTypes, useEffect } from 'react';
+import React, { useContext, useState, ReactPropTypes, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import SocialButtons from '../components/SocialButtons';
-import { AuthContext } from '../context/auth/authContext';
 import Head from 'next/head';
+import { AuthContext } from '../context/auth/AuthContext';
 
 const login: React.FC<ReactPropTypes> = (): JSX.Element => {
   const router = useRouter();
-  const authContext = useContext(AuthContext);
-  const { user, loading, error, localLogin } = authContext;
+  const context = useContext(AuthContext);
+  const { user, loading, error, localLogin } = context;
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (user) {
       router.push('/projects');
     }
-  }, [user, router]);
+  }, [user]);
 
   const localLoginHander = (e: React.FormEvent) => {
     e.preventDefault();

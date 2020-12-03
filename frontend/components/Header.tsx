@@ -15,7 +15,7 @@ const Header: React.FC = () => {
         <Link href="/login">
           <li className="mr-4 cursor-pointer font-bold">Login</li>
         </Link>
-        <Link href="/login">
+        <Link href="/register">
           <li className="mr-4 cursor-pointer font-bold">Register</li>
         </Link>
         <Link href="#">

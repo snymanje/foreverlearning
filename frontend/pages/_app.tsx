@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import { AppProps } from 'next/app';
 import ProjectContextProvider from '../context/projects/ProjectContext';
-import AuthContextProvider from '../context/auth/authContext';
+import AuthContextProvider from '../context/auth/AuthContext';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
