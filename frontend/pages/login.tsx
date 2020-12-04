@@ -1,4 +1,4 @@
-import React, { useContext, useState, ReactPropTypes, useLayoutEffect } from 'react';
+import React, { useContext, useState, ReactPropTypes, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import SocialButtons from '../components/SocialButtons';
@@ -13,7 +13,7 @@ const login: React.FC<ReactPropTypes> = (): JSX.Element => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (user) {
       router.push('/projects');
     }

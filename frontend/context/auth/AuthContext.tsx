@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import axios from 'axios';
+import axiosConfig from '../../helpers/axiosInterceptor';
 import { authReducer, IUser, IUserState } from './authReducer';
 
 interface IAuthContext {
@@ -38,7 +38,7 @@ const AuthContextProvider: React.FC = ({ children }) => {
       }
     };
     try {
-      const { data } = await axios.post('http://localhost:5000/api/v1/auth/locallogin', formData, config);
+      const { data } = await axiosConfig.post('http://localhost:5000/api/v1/auth/locallogin', formData, config);
       localStorage.setItem('user', JSON.stringify(data.user));
       dispatch({ type: 'LOGIN_SUCCESS', payload: data.user });
     } catch (err) {

@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
-import axios from 'axios';
-import { projectReducer, IProject, Actions, IProjectState } from './projectReducer';
+import axiosConfig from '../../helpers/axiosInterceptor';
+import { projectReducer, IProject, IProjectState } from './projectReducer';
 
 interface IProjectContext {
   projects: IProject[];
@@ -29,7 +29,7 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
   // GET Projects
   const getProjects = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/v1/project');
+      const res = await axiosConfig.get('http://localhost:5000/api/v1/project');
       dispatch({ type: 'GET_PROJECTS', payload: res.data });
     } catch (err) {
       console.log(err.response);
@@ -45,7 +45,7 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
           'Content-Type': 'application/json'
         }
       };
-      const res = await axios.post('http://localhost:5000/api/v1/project', project, config);
+      const res = await axiosConfig.post('/api/v1/project', project, config);
       dispatch({ type: 'ADD_PROJECT', payload: res.data });
     } catch (err) {
       dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
@@ -55,7 +55,7 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
   // Delete Project
   const deleteProject = async (project) => {
     try {
-      await axios.delete(`http://localhost:5000/api/v1/project/${project._id}`);
+      await axiosConfig.delete(`/api/v1/project/${project._id}`);
       dispatch({ type: 'DELETE_PROJECT', payload: project });
     } catch (err) {
       console.log(err.response);
