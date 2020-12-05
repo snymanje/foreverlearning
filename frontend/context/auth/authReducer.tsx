@@ -16,6 +16,9 @@ export type Actions =
       payload: IUser;
     }
   | {
+      type: 'LOGOUT';
+    }
+  | {
       type: 'LOAD_USER_LOCALSTORAGE';
       payload: IUser;
     }
@@ -45,6 +48,11 @@ export const authReducer = (state: IUserState, action: Actions): IUserState => {
         user: action.payload,
         loading: false,
         error: null
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        user: null
       };
     case 'LOGIN_FAIL':
       return {

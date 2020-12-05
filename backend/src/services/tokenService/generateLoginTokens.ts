@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 import config from '../../config/config';
 
 export default async (user: IUser): Promise<ITokens> => {
-  const { id, email, role, method } = user;
+  const { _id: id, email, role, method } = user;
+
   const access_token = await jwt.sign({ id, email, role, method }, config.tokenSecret, {
     expiresIn: config.tokenExpiresIn
   });

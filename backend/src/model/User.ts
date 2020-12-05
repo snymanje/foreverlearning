@@ -160,7 +160,6 @@ userSchema.set('toJSON', {
   versionKey: false,
   transform: function (_, ret) {
     // remove these props when object is serialized
-    delete ret._id;
     delete ret.password;
     delete ret.passwordChangedAt;
     delete ret.passwordResetToken;

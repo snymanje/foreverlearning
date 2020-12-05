@@ -1,11 +1,23 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, ReactNode } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Header from '../components/Header';
 import { ProjectContext } from '../context/projects/ProjectContext';
+import { AuthContext } from '../context/auth/AuthContext';
 
-const projects: React.FC = () => {
+interface Props {
+  children: ReactNode;
+  isAuthenticated: boolean;
+}
+
+const projects: React.FC<Props> = () => {
+  const router = useRouter();
+
   const projectContext = useContext(ProjectContext);
   const { projects, error, getProjects, addProject, deleteProject } = projectContext;
+
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -14,8 +26,11 @@ const projects: React.FC = () => {
   const [duration, setDuration] = useState<number>(0);
 
   useEffect(() => {
-    getProjects();
-    console.log(projects);
+    if (user) {
+      getProjects();
+    } else {
+      router.push('/login');
+    }
   }, []);
 
   const addProjectHandler = async (e: React.FormEvent) => {
@@ -166,5 +181,18 @@ const projects: React.FC = () => {
     </div>
   );
 };
+
+/* export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const isAuthenticated = req?.headers?.cookie?.split(';')[2]?.trim()?.includes('token');
+  if (isAuthenticated) {
+    return {
+      props: { isAuthenticated: true } // will be passed to the page component as props
+    };
+  } else {
+    return {
+      props: { isAuthenticated: false } // will be passed to the page component as props
+    };
+  }
+}; */
 
 export default projects;

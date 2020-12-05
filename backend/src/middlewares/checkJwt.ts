@@ -14,7 +14,7 @@ export const checkJwt = async (req: Request, res: Response, next: NextFunction):
   }
 
   if (!token) {
-    next(new AppError('You are not logged in', 401));
+    return next(new AppError('You are not logged in', 401));
   }
 
   //Try to validate the token and get data

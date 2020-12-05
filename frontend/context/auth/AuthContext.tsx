@@ -1,17 +1,17 @@
-import React, { createContext, useReducer, useEffect } from 'react';
-import axiosConfig from '../../helpers/axiosInterceptor';
-import { authReducer, IUser, IUserState } from './authReducer';
+import { createContext } from 'react';
+import { IUser } from './authReducer';
 
 interface IAuthContext {
   user: IUser;
   loading: boolean;
   error: string;
   localLogin: (formData: { email: string; password: string }) => void;
+  logout: () => void;
 }
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
-const AuthContextProvider: React.FC = ({ children }) => {
+/* const AuthContextProvider: React.FC = ({ children }) => {
   const initialState: IUserState = {
     user: null,
     loading: false,
@@ -60,4 +60,4 @@ const AuthContextProvider: React.FC = ({ children }) => {
   );
 };
 
-export default AuthContextProvider;
+export default AuthContextProvider; */
