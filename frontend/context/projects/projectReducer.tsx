@@ -1,10 +1,8 @@
 export interface IProject {
   _id?: string;
   title: string;
-  description: string;
-  channel: string;
-  instructor: string;
-  duration: number;
+  techStack: string;
+  features: string;
 }
 
 export interface IProjectState {

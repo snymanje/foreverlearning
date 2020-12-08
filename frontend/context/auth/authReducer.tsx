@@ -35,7 +35,8 @@ export const authReducer = (state: IUserState, action: Actions): IUserState => {
     case 'LOAD_USER_LOCALSTORAGE':
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        loading: false
       };
     case 'LOAD_USER':
       return {

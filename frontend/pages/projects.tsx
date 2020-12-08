@@ -20,10 +20,8 @@ const projects: React.FC<Props> = () => {
   const { user } = authContext;
 
   const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [channel, setChannel] = useState<string>('');
-  const [instructor, setInstructor] = useState<string>('');
-  const [duration, setDuration] = useState<number>(0);
+  const [techStack, setTechStack] = useState<string>('');
+  const [features, setFeatures] = useState<string>('');
 
   useEffect(() => {
     if (user) {
@@ -31,16 +29,14 @@ const projects: React.FC<Props> = () => {
     } else {
       router.push('/login');
     }
-  }, []);
+  }, [user]);
 
   const addProjectHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     addProject({
       title,
-      description,
-      channel,
-      instructor,
-      duration
+      techStack,
+      features
     });
   };
 
@@ -79,51 +75,27 @@ const projects: React.FC<Props> = () => {
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
+                  <div className="flex flex-col mt-5">
+                    <label htmlFor="title" className="text-lg text-gray-700">
+                      Technology Stack
+                    </label>
+                    <input
+                      type="text"
+                      name="techStack"
+                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setTechStack(e.target.value)}
+                    />
+                  </div>
                   <div className="flex flex-col my-3">
                     <label htmlFor="description" className="text-lg text-gray-700">
-                      Description
+                      Features
                     </label>
-                    <input
-                      type="text"
-                      name="description"
+                    <textarea
+                      cols={10}
+                      rows={5}
+                      name="features"
                       className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col my-3">
-                    <label htmlFor="channel" className="text-lg text-gray-700">
-                      Channel
-                    </label>
-                    <select
-                      name="channel"
-                      id="channel"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setChannel(e.target.value)}
-                    >
-                      <option value="youtube">YouTube</option>
-                      <option value="udemy">Udemy</option>
-                    </select>
-                  </div>
-                  <div className="flex flex-col my-3">
-                    <label htmlFor="instructor" className="text-lg text-gray-700">
-                      Instructor
-                    </label>
-                    <input
-                      type="text"
-                      name="instructor"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setInstructor(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col my-3">
-                    <label htmlFor="duration" className="text-lg text-gray-700">
-                      Duration in hours
-                    </label>
-                    <input
-                      type="text"
-                      name="duration"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setDuration(Number(e.target.value))}
+                      onChange={(e) => setFeatures(e.target.value)}
                     />
                   </div>
                   <div>
@@ -145,23 +117,13 @@ const projects: React.FC<Props> = () => {
                 {projects.map((project) => {
                   return (
                     <div key={project._id} className="max-w-2xl border border-solid border-gray-200 shadow-md mb-3">
-                      <div className="flex justify-between p-4 hover:shadow-lg transition ease-linear">
+                      <div className="flex flex-col justify-between p-4 hover:shadow-lg transition ease-linear">
                         <div>
                           <h3 className="font-bold text-lg">{project.title}</h3>
-                          <p className="text-md text-yellow-700 font-medium">
-                            Build with Nextjs, tailwindcss, TypeOrm and Node
-                          </p>
-                          <p className="mt-4 text-sm">
-                            Channel: <span className=" font-medium">Youtube</span>
-                          </p>
-                          <p className="mt-1 text-sm">
-                            Author: <span className=" font-medium">Jean Snyman</span>
-                          </p>
-                          <p className="mt-1 text-sm">
-                            Length: <span className=" font-medium">3 hours</span>
-                          </p>
+                          <p className="text-md text-yellow-700 font-medium">{project.techStack}</p>
+                          <p className="text-md text-yellow-700 font-medium mt-3">{project.features}</p>
                         </div>
-                        <div className="self-end min-w-max">
+                        <div className="self-end min-w-max mt-5">
                           <i className="fas fa-edit text-xl cursor-pointer" style={{ color: 'green' }}></i>
                           <i
                             className="fas fa-trash text-xl ml-6 cursor-pointer"

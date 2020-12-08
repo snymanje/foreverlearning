@@ -1,8 +1,23 @@
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { FormEvent } from 'react';
 import Header from '../components/Header';
+import { AuthContext } from '../context/auth/AuthContext';
 
 const Home: React.FunctionComponent = () => {
+  const router = useRouter();
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
+  useEffect(() => {
+    if (user) {
+      //getProjects();
+    } else {
+      router.push('/login');
+    }
+  }, []);
+
   const addTutorial = (e: FormEvent) => {
     e.preventDefault();
     console.log('Add tutorial');

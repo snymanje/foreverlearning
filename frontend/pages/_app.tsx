@@ -1,19 +1,22 @@
 import '../styles/globals.css';
 import { useEffect, useReducer } from 'react';
+import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import ProjectContextProvider from '../context/projects/ProjectContext';
 import axiosConfig from '../helpers/axiosInterceptor';
 import { AuthContext } from '../context/auth/AuthContext';
 import { authReducer, IUserState } from '../context/auth/authReducer';
 import '../helpers/axiosInterceptor';
+import Cookies from 'js-cookie';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   const initialState: IUserState = {
     user: null,
-    loading: false,
+    loading: true,
     error: null
   };
 
+  const router = useRouter();
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load user from local storage
@@ -23,6 +26,8 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
       : null;
 
     dispatch({ type: 'LOAD_USER_LOCALSTORAGE', payload: userForLocalStorage });
+
+    if (!userForLocalStorage) router.push('/login');
   }, []);
 
   // LOGIN
@@ -46,6 +51,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   const logout = async () => {
     dispatch({ type: 'LOGOUT' });
     localStorage.removeItem('user');
+    Cookies.remove('refreshTokenPayload');
   };
 
   return (

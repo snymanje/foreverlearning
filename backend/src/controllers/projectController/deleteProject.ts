@@ -3,6 +3,9 @@ import projectService from '../../services/projectService';
 
 export default async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  await projectService.deleteProject(id);
-  res.send('Project removed successfully');
+  const project = await projectService.deleteProject(id);
+  res.status(203).json({
+    message: 'Project removed successfully',
+    project
+  });
 };
