@@ -20,7 +20,6 @@ export const checkJwt = async (req: Request, res: Response, next: NextFunction):
   //Try to validate the token and get data
   const jwtPayload = await promisify(jwt.verify)(token, config.tokenSecret);
   res.locals.jwtPayload = jwtPayload;
-
   //The token is valid for 1 hour
   //We want to send a new token on every request
   /*  const { userId, username } = jwtPayload;

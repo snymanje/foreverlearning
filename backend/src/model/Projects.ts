@@ -1,6 +1,8 @@
 import { model, Schema, Model, Document } from 'mongoose';
+import User from '../model/User';
 
 export interface IProject extends Document {
+  user: Schema.Types.ObjectId;
   title: string;
   techStack: string;
   features: string;
@@ -8,6 +10,11 @@ export interface IProject extends Document {
 
 const projectSchema: Schema = new Schema(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: User
+    },
     title: {
       type: String,
       required: [true, 'Please enter a title']

@@ -1,4 +1,3 @@
-import { IProject } from './../model/Projects';
 import { Router } from 'express';
 import projectController from '../controllers/projectController/';
 import EmptyDto from '../dtos/EmptyDto';
