@@ -2,7 +2,7 @@ import { model, Schema, Model, Document } from 'mongoose';
 import User from '../model/User';
 
 export interface IProject extends Document {
-  user: Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId | string;
   title: string;
   techStack: string;
   features: string;
