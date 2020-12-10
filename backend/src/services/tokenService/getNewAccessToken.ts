@@ -10,7 +10,7 @@ export default async (refreshToken: string): Promise<string> => {
   const decoded: any = await promisify(jwt.verify)(refreshToken, config.refreshTokenSecret);
 
   // Check if user exists
-  const loggedInUser = await User.findOne({ _id: decoded.id });
+  const loggedInUser = await User.findOne({ _id: decoded._id });
   if (!loggedInUser) {
     throw new AppError('User for this token nolonger exists, please register', 401);
   }
@@ -22,8 +22,8 @@ export default async (refreshToken: string): Promise<string> => {
     }
   }
 
-  const { _id: id, email, role, method } = loggedInUser;
-  const access_token = await jwt.sign({ id, email, role, method }, config.tokenSecret, {
+  const { _id, email, role, method } = loggedInUser;
+  const access_token = await jwt.sign({ _id, email, role, method }, config.tokenSecret, {
     expiresIn: process.env.TOKENEXPIRES
   });
 
