@@ -20,10 +20,7 @@ const Header: React.FC = () => {
       {user ? (
         <ul className="flex">
           <Link href="/">
-            <li className="mr-4 cursor-pointer font-bold">Tutorials</li>
-          </Link>
-          <Link href="/projects">
-            <li className="mr-4 cursor-pointer font-bold">Projects</li>
+            <li className="mr-4 cursor-pointer font-bold">Home</li>
           </Link>
           <Link href="#">
             <li className="mr-4 cursor-pointer font-bold" onClick={() => logoutHandler()}>

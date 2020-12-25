@@ -7,6 +7,7 @@ import axiosConfig from '../helpers/axiosInterceptor';
 import { AuthContext } from '../context/auth/AuthContext';
 import { authReducer, IUserState } from '../context/auth/authReducer';
 import '../helpers/axiosInterceptor';
+import Header from '../components/Header';
 import Cookies from 'js-cookie';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
@@ -65,6 +66,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
       }}
     >
       <ProjectContextProvider>
+        <Header />
         <Component {...pageProps} />
       </ProjectContextProvider>
     </AuthContext.Provider>

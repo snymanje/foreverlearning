@@ -7,14 +7,21 @@ export default async (res: Response, tokens: ITokens): Promise<void> => {
   const [refreshTokenHeader, refreshTokenPayload, refreshTokenSignature] = refreshtokenArray;
 
   res.cookie('token', tokens.access_token, {
-    httpOnly: true
-    //maxAge: process.env.COOKIEEXPIRES,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/'
   });
   res.cookie('refreshTokenSignature', refreshTokenSignature, {
-    httpOnly: true
-    //maxAge: process.env.REFRESHCOOKIEEXPIRES,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/'
   });
   res.cookie('refreshTokenPayload', `${refreshTokenHeader}.${refreshTokenPayload}`, {
-    maxAge: Number(config.cookieExpires)
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/',
+    maxAge: Number(config.refreshCookieExpires)
   });
 };

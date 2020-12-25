@@ -10,6 +10,7 @@ export default {
   clientUrl: process.env.CLIENTURL,
   tokenExpiresIn: process.env.TOKENEXPIRES,
   refreshTokenExpiresIn: process.env.REFRESHTOKENEXPIRES,
+  // 24days * 60sec * 60min * 1000 milliseconds
   cookieExpires: process.env.COOKIEEXPIRES,
   refreshCookieExpires: process.env.REFRESHCOOKIEEXPIRES,
   googleClientId: process.env.GOOGLECLIENTID,

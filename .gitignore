@@ -3,13 +3,12 @@
 # dependencies
 node_modules/
 
-
 .idea/
 .vscode/
 build/
 tmp/
 temp/
-.env
+/**/*.env
 *.sqlite
 
 # testing

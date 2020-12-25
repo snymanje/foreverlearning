@@ -1,6 +1,7 @@
-import React, { createContext, ReactNode, useReducer } from 'react';
+import React, { createContext, ReactNode, useContext, useReducer } from 'react';
 import axiosConfig from '../../helpers/axiosInterceptor';
 import { projectReducer, IProject, IProjectState } from './projectReducer';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 interface IProjectContext {
   projects: IProject[];
@@ -24,6 +25,10 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
     loading: false,
     error: null
   };
+
+  const context = useContext(AuthContext);
+  const { logout } = context;
+
   const [state, dispatch] = useReducer(projectReducer, initialState);
 
   // GET Projects
@@ -33,6 +38,7 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
       dispatch({ type: 'GET_PROJECTS', payload: res.data });
     } catch (err) {
       dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
+      err.response && err.response.status === 401 ? logout() : null;
     }
   };
 
@@ -48,6 +54,7 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
       dispatch({ type: 'ADD_PROJECT', payload: res.data });
     } catch (err) {
       dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
+      err.response && err.response.status === 401 ? logout() : null;
     }
   };
 
@@ -57,8 +64,8 @@ const ProjectContextProvider = (props: Props): JSX.Element => {
       await axiosConfig.delete(`http://localhost:5000/api/v1/project/${project._id}`);
       dispatch({ type: 'DELETE_PROJECT', payload: project });
     } catch (err) {
-      console.log(err.response);
       dispatch({ type: 'PROJECT_ERROR', payload: err.response.data.message });
+      err.response && err.response.status === 401 ? logout() : null;
     }
   };
 
