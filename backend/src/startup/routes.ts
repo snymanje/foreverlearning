@@ -27,8 +27,9 @@ export default (app: Application): void => {
   );
   app.use(
     cors({
-      origin: 'http://localhost:3000',
-      credentials: true
+      origin: process.env.ORIGIN,
+      credentials: true,
+      optionsSuccessStatus: 200
     })
   );
   app.use(bodyParser.json());

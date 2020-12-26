@@ -2,6 +2,7 @@ export default {
   tokenSecret: process.env.TOKENSECRET,
   refreshTokenSecret: process.env.REFRESHTOKENSECRET,
   serverPort: process.env.SERVERPORT,
+  mongooseConnection: process.env.MONGOOSE_CONNECTION,
   emailFromAddress: process.env.EMAILFROMADDRESS,
   emailHost: process.env.EMAILHOST,
   emailPort: process.env.EMAILPORT,

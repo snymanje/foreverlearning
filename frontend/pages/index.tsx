@@ -50,8 +50,8 @@ const projects: React.FC<Props> = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="">
-        <main className="container mx-auto">
-          <div className="grid grid-cols-1 grid-rows-1 mt-8 lg:grid-cols-2">
+        <main className="container h-screen pt-12 mx-auto bg-white shadow-md">
+          <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2">
             <div className="flex flex-col items-center text-gray-700">
               <h2 className="text-2xl font-bold">Add Projects</h2>
               <div className="flex flex-col flex-wrap mx-4 mt-6">
