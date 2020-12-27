@@ -9,9 +9,6 @@ export default async (req: Request, res: Response): Promise<void> => {
   });
   res.status(200).json({
     status: 'Successfull',
-    message: 'Reissued access token.',
-    data: {
-      access_token: refreshToken
-    }
+    message: 'Reissued access token.'
   });
 };

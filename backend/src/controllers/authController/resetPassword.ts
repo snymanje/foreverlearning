@@ -8,7 +8,6 @@ export default async (req: Request, res: Response): Promise<void> => {
   await tokenService.setAuthCookies(res, tokens);
   res.status(200).json({
     status: 'Successfull',
-    message: `Psssword for ${user.email} was successfully reset.`,
-    data: { ...tokens }
+    message: `Psssword for ${user.email} was successfully reset.`
   });
 };

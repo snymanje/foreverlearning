@@ -6,6 +6,6 @@ export default async (req: Request, res: Response): Promise<void> => {
   res.status(201).json({
     status: 'Successfull',
     message: 'Users retreived.',
-    data: user
+    user
   });
 };

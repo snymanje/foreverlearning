@@ -8,8 +8,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
     <AuthContextProvider>
       <ProjectContextProvider>
-        <Header />
-        <Component {...pageProps} />
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <Component {...pageProps} />
+        </div>
       </ProjectContextProvider>
     </AuthContextProvider>
   );

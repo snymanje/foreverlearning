@@ -14,16 +14,18 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between px-8 py-4 text-white bg-yellow-600">
-      <div className="text-xl font-bold">Forever Learning</div>
+    <div className="flex items-center justify-between h-12 px-4 py-4 text-white bg-yellow-600 md:px-8">
+      <Link href="/">
+        <div className="text-lg font-bold cursor-pointer md:text-xl">Forever Learning</div>
+      </Link>
 
       {user ? (
         <ul className="flex">
           <Link href="/">
-            <li className="mr-4 font-bold cursor-pointer">Home</li>
+            <li className="mr-4 font-bold cursor-pointer text-md md:text-lg">Home</li>
           </Link>
           <Link href="#">
-            <li className="mr-4 font-bold cursor-pointer" onClick={() => logoutHandler()}>
+            <li className="mr-4 font-bold cursor-pointer text-md md:text-lg" onClick={() => logoutHandler()}>
               Log out
             </li>
           </Link>
@@ -31,10 +33,10 @@ const Header: React.FC = () => {
       ) : (
         <ul className="flex">
           <Link href="/login">
-            <li className="mr-4 font-bold cursor-pointer">Login</li>
+            <li className="mr-4 font-bold cursor-pointer text-md md:text-lg">Login</li>
           </Link>
           <Link href="/register">
-            <li className="mr-4 font-bold cursor-pointer">Register</li>
+            <li className="mr-4 font-bold cursor-pointer text-md md:text-lg">Register</li>
           </Link>
         </ul>
       )}

@@ -5,11 +5,6 @@ body {
     @apply bg-gray-50;
 }
 
-.btn-primary {
-    @apply bg-yellow-600 hover:bg-yellow-500 text-white font-bold text-lg p-2;
-}
-
-
 @tailwind utilities;
 
 

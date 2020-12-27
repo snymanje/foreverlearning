@@ -22,7 +22,7 @@ const router = Router();
  *        200:
  *          description: All users retreived successfully.
  */
-router.get('/', [checkJwt, checkRole(['admin'])], UserController.listAll);
+/* router.get('/', [checkJwt, checkRole(['admin'])], UserController.listAll); */
 
 // Get one user
 /**
@@ -44,7 +44,7 @@ router.get('/', [checkJwt, checkRole(['admin'])], UserController.listAll);
  *        200:
  *          description: User retreived successfully.
  */
-router.get('/:id([0-9]+)', [checkJwt, checkRole(['admin'])], UserController.getOneById);
+/* router.get('/:id([0-9]+)', [checkJwt, checkRole(['admin'])], UserController.getOneById); */
 
 //Create a new user
 /**
@@ -66,7 +66,7 @@ router.get('/:id([0-9]+)', [checkJwt, checkRole(['admin'])], UserController.getO
  *        200:
  *          description: User created successfully.
  */
-router.post('/', validateRequest(CreateLocalUserWithRoleDto), [checkJwt, checkRole(['admin'])], UserController.newUser);
+/* router.post('/', validateRequest(CreateLocalUserWithRoleDto), [checkJwt, checkRole(['admin'])], UserController.newUser); */
 
 // Edit one user
 /**
@@ -88,7 +88,7 @@ router.post('/', validateRequest(CreateLocalUserWithRoleDto), [checkJwt, checkRo
  *        200:
  *          description: User updated successfully.
  */
-router.patch('/', validateRequest(EditUserDto), [checkJwt, checkRole(['admin'])], UserController.editUser);
+/* router.patch('/', validateRequest(EditUserDto), [checkJwt, checkRole(['admin'])], UserController.editUser); */
 
 //Delete one user
 /**
@@ -110,6 +110,21 @@ router.patch('/', validateRequest(EditUserDto), [checkJwt, checkRole(['admin'])]
  *        200:
  *          description: User deleted successfully.
  */
-router.delete('/:id([0-9]+)', [checkJwt, checkRole(['admin'])], UserController.deleteUser);
+/* router.delete('/:id([0-9]+)', [checkJwt, checkRole(['admin'])], UserController.deleteUser); */
+
+/**
+ * @swagger
+ * path:
+ *  /user/me:
+ *    post:
+ *      summary: get my profile
+ *      tags: [User CRUD Operations]
+ *      produces:
+ *          - application/json
+ *      responses:
+ *        200:
+ *          description: My profile loaded
+ */
+router.get('/me', checkJwt, UserController.me);
 
 export default router;

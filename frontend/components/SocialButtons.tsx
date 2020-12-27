@@ -3,14 +3,14 @@ import React from 'react';
 const SocialButtons: React.FC = () => {
   return (
     <>
-      <div className="flex mt-6 items-center">
-        <div className="border-b border-solid border-gray-800 flex flex-1"></div>
+      <div className="flex items-center mt-4">
+        <div className="flex flex-1 border-b border-gray-800 border-solid"></div>
         <div className="mx-3 font-medium">Or</div>
-        <div className="border-b border-solid border-gray-800 flex flex-1"></div>
+        <div className="flex flex-1 border-b border-gray-800 border-solid"></div>
       </div>
       <button
         value="Log In"
-        className="bg-gray-800 hover:bg-gray-700 text-white font-bold text-lg p-2 mt-6 cursor-pointer w-full"
+        className="w-full p-2 mt-4 text-sm font-bold text-white bg-gray-800 cursor-pointer hover:bg-gray-700"
       >
         Continue with Google
       </button>

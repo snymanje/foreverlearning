@@ -8,7 +8,6 @@ export default async (req: Request, res: Response): Promise<void> => {
   await tokenService.setAuthCookies(res, tokens);
   res.status(200).json({
     status: 'Successfull',
-    message: `${user.email} logged in successfully.`,
-    data: { ...tokens }
+    message: `${user.email} logged in successfully.`
   });
 };

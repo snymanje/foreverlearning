@@ -1,15 +1,15 @@
-import getAllUsers from '../userService/getAllUsers';
+/* import getAllUsers from '../userService/getAllUsers';
 import deleteUser from '../userService/deleteUser';
 import editUser from '../userService/editUser';
 import getOneById from '../userService/getOneById';
-import newUser from '../userService/newUser';
+import newUser from '../userService/newUser'; */
 
 const userService = {
-  getAllUsers,
+  /*  getAllUsers,
   deleteUser,
   editUser,
   getOneById,
-  newUser
+  newUser */
 };
 
 export default userService;
